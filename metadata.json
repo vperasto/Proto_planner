@@ -1,0 +1,5 @@
+{
+  "name": "PROTO_PLANNER_V1",
+  "description": "A utilitarian, brutalist monthly planner and habit tracker with local persistence and data portability.",
+  "requestFramePermissions": []
+}

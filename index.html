@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROTO_PLANNER_V1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+            colors: {
+              'paper-bg': '#f4f4f5', // Zinc-100
+              'card-bg': '#ffffff',  // White
+              'ink': '#18181b',      // Zinc-900
+              'accent': '#facc15',   // Yellow-400
+              'muted': '#71717a',    // Zinc-500
+            },
+            boxShadow: {
+              'neo': '4px 4px 0px 0px rgba(0,0,0,1)',
+              'neo-sm': '2px 2px 0px 0px rgba(0,0,0,1)',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #f4f4f5;
+        color: #18181b; /* Ensure default text is dark ink */
+        font-family: 'JetBrains Mono', monospace;
+        /* Dot matrix background */
+        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f4f4f5; 
+        border-left: 2px solid #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #000; 
+        border: 2px solid #f4f4f5;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #facc15;
+      }
+
+      /* Brutalist Patterns */
+      .pattern-stripe {
+        background-image: repeating-linear-gradient(45deg, #18181b 0, #18181b 2px, transparent 0, transparent 50%);
+        background-size: 8px 8px;
+      }
+      .pattern-grid {
+        background-image: radial-gradient(#18181b 2px, transparent 2px);
+        background-size: 4px 4px;
+        background-color: transparent;
+      }
+      .pattern-cross {
+        background: 
+          linear-gradient(45deg, #18181b 25%, transparent 25%, transparent 75%, #18181b 75%, #18181b),
+          linear-gradient(45deg, #18181b 25%, transparent 25%, transparent 75%, #18181b 75%, #18181b);
+        background-color: transparent;
+        background-position: 0 0, 4px 4px;
+        background-size: 8px 8px;
+        opacity: 0.8;
+      }
+      .pattern-hatch {
+        background-image: linear-gradient(135deg, #18181b 25%, transparent 25%), linear-gradient(225deg, #18181b 25%, transparent 25%), linear-gradient(45deg, #18181b 25%, transparent 25%), linear-gradient(315deg, #18181b 25%, transparent 25%);
+        background-position: 4px 0, 4px 0, 0 0, 0 0;
+        background-size: 8px 8px;
+        background-repeat: repeat;
+      }
+      
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
