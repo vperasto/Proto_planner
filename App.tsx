@@ -518,7 +518,10 @@ const App: React.FC = () => {
         </div>
         <div className="bg-zinc-50 text-muted text-[10px] p-2 px-4 border-t-2 border-black flex justify-between font-bold uppercase">
            <span>Rivi {data.projectLog.split('\n').length}, Merkki {data.projectLog.length}</span>
-           <span>UTF-8</span>
+           <div className="flex gap-4">
+             <span>© VESA PERASTO</span>
+             <span>UTF-8</span>
+           </div>
         </div>
       </div>
 

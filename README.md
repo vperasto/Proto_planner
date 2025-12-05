@@ -1,20 +1,11 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# PROTO PLANNER V1
 
-# Run and deploy your AI Studio app
+A utilitarian, brutalist monthly planner and habit tracker.
 
-This contains everything you need to run your app locally.
+## Copyright & License / Tekijänoikeus ja Lisenssi
 
-View your app in AI Studio: https://ai.studio/apps/drive/1V6gipqkLYpbgBEVskkBcWJcEEIiaPUeb
+**© Vesa Perasto. All rights reserved.**
 
-## Run Locally
+Tämä ohjelmisto on tarkoitettu vain henkilökohtaiseen käyttöön. Koodin tai sovelluksen luvaton kopiointi, muokkaaminen, levittäminen tai kaupallinen käyttö on ehdottomasti kielletty.
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+This software is provided for personal use only. Unauthorized copying, modification, distribution, or commercial use of this code or application is strictly prohibited.

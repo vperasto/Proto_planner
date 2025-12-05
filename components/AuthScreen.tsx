@@ -63,7 +63,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
         </form>
 
         <div className="mt-8 text-[10px] text-muted font-mono text-center border-t-2 border-dashed border-zinc-300 pt-4">
-          VERSIO: 1.0.0 // ALUE: FI-HELSINKI
+          VERSIO: 1.0.0 // ALUE: FI-HELSINKI<br/>
+          © {new Date().getFullYear()} VESA PERASTO
         </div>
       </div>
     </div>
