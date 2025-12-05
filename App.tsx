@@ -131,6 +131,36 @@ const App: React.FC = () => {
     localStorage.setItem('proto_planner_v1', JSON.stringify(data));
   }, [data]);
 
+  // --- AUTO-LOCK IMPLEMENTATION ---
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const TIMEOUT_DURATION = 5 * 60 * 1000; // 5 Minutes
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const doLogout = () => {
+       setIsAuthenticated(false);
+       sessionStorage.setItem('proto_auth', 'false');
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(doLogout, TIMEOUT_DURATION);
+    };
+
+    // Initialize
+    resetTimer();
+
+    // Listeners for activity
+    const activityEvents = ['mousemove', 'keypress', 'click', 'scroll', 'touchstart'];
+    activityEvents.forEach(e => window.addEventListener(e, resetTimer));
+
+    return () => {
+      clearTimeout(timeoutId);
+      activityEvents.forEach(e => window.removeEventListener(e, resetTimer));
+    };
+  }, [isAuthenticated]);
+
   // Actions
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -576,7 +606,8 @@ const App: React.FC = () => {
           
           <div className="text-[10px] text-center text-muted uppercase">
             Järjestelmä ID: PROTO_PLANNER_V1<br/>
-            Local Storage Persistence Active
+            Local Storage Persistence Active<br/>
+            Auto-lock Timer: 5min
           </div>
         </div>
       </Modal>
