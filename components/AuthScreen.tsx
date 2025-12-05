@@ -28,7 +28,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
         <div className="absolute bottom-2 left-2 w-2 h-2 bg-black"></div>
         <div className="absolute bottom-2 right-2 w-2 h-2 bg-black"></div>
 
-        <h1 className="text-4xl font-extrabold mb-2 tracking-wide uppercase text-center text-ink">PROTO_PLANNER</h1>
+        <h1 className="text-6xl font-display mb-2 tracking-widest uppercase text-center text-ink">
+          PROTO PLANNER
+        </h1>
         <div className="h-2 w-full bg-accent border-y-2 border-black mb-6"></div>
         
         <p className="font-mono text-sm mb-6 text-muted text-center uppercase font-bold">
