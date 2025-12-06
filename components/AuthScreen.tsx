@@ -5,17 +5,39 @@ interface AuthScreenProps {
   onLogin: () => void;
 }
 
+// SHA-256 hash for 'crimescene'
+const ACCESS_HASH = "d2b5ca33bd970f64a6301fa75ae2eb2215f750f95e7d9b79a8d0a66d03f0d465";
+
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const verifyPassword = async (attempt: string): Promise<boolean> => {
+    try {
+      const msgBuffer = new TextEncoder().encode(attempt);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex === ACCESS_HASH;
+    } catch (e) {
+      console.error("Crypto subsystem failure");
+      return false;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (input === 'crimescene') {
+    setIsValidating(true);
+    
+    const isValid = await verifyPassword(input);
+    
+    if (isValid) {
       onLogin();
     } else {
       setError(true);
       setInput('');
+      setIsValidating(false);
     }
   };
 
@@ -48,7 +70,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 setInput(e.target.value);
                 setError(false);
               }}
-              className="w-full bg-zinc-50 text-ink border-2 border-black p-3 font-mono focus:outline-none focus:bg-white focus:shadow-neo transition-all placeholder-zinc-400"
+              disabled={isValidating}
+              className="w-full bg-zinc-50 text-ink border-2 border-black p-3 font-mono focus:outline-none focus:bg-white focus:shadow-neo transition-all placeholder-zinc-400 disabled:opacity-50"
               placeholder="..."
               autoFocus
             />
@@ -59,7 +82,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
             )}
           </div>
 
-          <Button type="submit" label="KIRJAUDU" className="w-full mt-4 bg-accent text-ink" />
+          <Button 
+            type="submit" 
+            label={isValidating ? "TARKISTETAAN..." : "KIRJAUDU"} 
+            disabled={isValidating}
+            className="w-full mt-4 bg-accent text-ink disabled:bg-zinc-300 disabled:cursor-wait" 
+          />
         </form>
 
         <div className="mt-8 text-[10px] text-muted font-mono text-center border-t-2 border-dashed border-zinc-300 pt-4">
