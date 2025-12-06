@@ -5,40 +5,42 @@ interface AuthScreenProps {
   onLogin: () => void;
 }
 
-// SHA-256 hash for 'crimescene'
-const ACCESS_HASH = "d2b5ca33bd970f64a6301fa75ae2eb2215f750f95e7d9b79a8d0a66d03f0d465";
+// Base64 encoded 'crimescene'
+// To decode: atob(ACCESS_KEY)
+const ACCESS_KEY = "Y3JpbWVzY2VuZQ==";
 
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
 
-  const verifyPassword = async (attempt: string): Promise<boolean> => {
-    try {
-      const msgBuffer = new TextEncoder().encode(attempt);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      return hashHex === ACCESS_HASH;
-    } catch (e) {
-      console.error("Crypto subsystem failure");
-      return false;
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsValidating(true);
     
-    const isValid = await verifyPassword(input);
-    
-    if (isValid) {
-      onLogin();
-    } else {
-      setError(true);
-      setInput('');
-      setIsValidating(false);
+    // Simple check to prevent empty submission processing
+    if (!input) {
+        setIsValidating(false);
+        return;
     }
+    
+    // Simulate a tiny network delay for the 'hacker' feel
+    setTimeout(() => {
+        try {
+            // Encode input to Base64 and compare
+            const attemptHash = btoa(input);
+            
+            if (attemptHash === ACCESS_KEY) {
+                onLogin();
+            } else {
+                throw new Error("Mismatch");
+            }
+        } catch (e) {
+            setError(true);
+            setInput('');
+            setIsValidating(false);
+        }
+    }, 300);
   };
 
   return (
